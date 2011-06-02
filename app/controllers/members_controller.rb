@@ -22,7 +22,9 @@ class MembersController < ApplicationController
   # PUT /members/:id
   def update
     @member = current_user
-
+    
+    params[:member] = params[:user] if params[:user].present?
+    
     if params[:member][:password].blank? and params[:member][:password_confirmation].blank?
       params[:member].delete(:password)
       params[:member].delete(:password_confirmation)

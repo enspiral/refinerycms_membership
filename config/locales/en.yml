@@ -85,6 +85,10 @@ en:
     login_form:
       login: Email
       password: Password
+    update:
+      successful: Profile updated successfully.
+    profile:
+      edit_profile: Edit Profile
     shared:
       account: Account
       profile: Profile
