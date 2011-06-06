@@ -102,8 +102,7 @@ en:
       blank_password_keeps_current: Leaving password blank keeps the current password
     new:
       title: Membership Application Form
-      instructions: Please complete information. You will be notified
-        of your acceptance upon approval.
+      instructions: Please complete information. You will be notified of your acceptance upon approval.
       submit_application: Submit Application
     shared:
       account: Account

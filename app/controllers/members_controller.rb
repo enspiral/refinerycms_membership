@@ -43,6 +43,7 @@ class MembersController < ApplicationController
     @member = Member.new(params[:member])
     
     if @member.save
+      sign_in :user, @member
       redirect_to thank_you_members_path
     else
       @member.errors.delete(:username) # this is set to email
