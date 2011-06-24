@@ -25,5 +25,6 @@ Refinery::Application.routes.draw do
     get :login
     get :thank_you
     get :profile
+    get :edit_account
 	end	
 end

@@ -18,6 +18,10 @@ class MembersController < ApplicationController
   def edit
     @member = current_user
   end
+  
+  def edit_account
+    @member = current_user
+  end
 
   # PUT /members/:id
   def update
