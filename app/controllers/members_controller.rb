@@ -4,7 +4,11 @@ class MembersController < ApplicationController
   before_filter :authenticate_user!, :except => [:new, :create, :login, :index, :thank_you]
 
   before_filter :find_page
-
+  
+  def current_member
+    
+  end
+  
   # GET /member/:id
   def profile
     @member = current_user

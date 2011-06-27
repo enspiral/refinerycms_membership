@@ -40,9 +40,24 @@ module Refinery
         require File.expand_path('../rails_datatables/rails_datatables', __FILE__)
         ActionView::Base.send :include, RailsDatatables
         
+        
         # make users and members two different classes
         User.class_eval do
           set_inheritance_column :membership_level
+          
+          def subscribe_to_campaign_monitor=(val)
+            if val.to_i == 1 && !self.subscribed_to_campaign_monitor?
+              CreateSend::Subscriber.add(CAMPAIGN_MONITOR_LIST_ID, self.email, "#{self.first_name} #{self.last_name}", [], true) if defined?(CAMPAIGN_MONITOR_LIST_ID)
+              update_attribute(:subscribed_to_campaign_monitor, true)
+            elsif val.to_i == 0 && self.subscribed_to_campaign_monitor?
+              CreateSend::Subscriber.new(CAMPAIGN_MONITOR_LIST_ID, self.email).unsubscribe if defined?(CAMPAIGN_MONITOR_LIST_ID)
+              update_attribute(:subscribed_to_campaign_monitor, false)
+            end
+          end
+
+          def subscribe_to_campaign_monitor 
+            subscribed_to_campaign_monitor?
+          end
         end
     
         

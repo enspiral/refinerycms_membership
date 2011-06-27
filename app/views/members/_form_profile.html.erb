@@ -21,6 +21,12 @@
       <%= f.label :fax %>
       <%= f.text_field :fax %>&nbsp;
     </li>
+    
+    <li>
+      <%= f.label :subscribe_to_campaign_monitor, "Subscribe to our Newsletter" %>
+      <%= f.check_box :subscribe_to_campaign_monitor %>
+    </li>
+    
     <% if !f.object.new_record? %>
     <li>
       <%= f.label :membership_level %>

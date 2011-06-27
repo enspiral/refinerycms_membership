@@ -6,7 +6,7 @@
     <%= render :partial => "static_profile" %>
     <%= render :partial => "static_organization" %>    
   </div>
-  <%= link_to t('.edit_profile'), profile_members_path %>
+  <%= link_to t('.edit_profile'), edit_members_path %>
   <%=raw @page[:body_below] if @page %>
 <% end %>
 

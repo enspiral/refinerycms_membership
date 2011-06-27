@@ -9,13 +9,29 @@ class Member < User
   validates :membership_level, :first_name, :last_name, :presence => true
   attr_accessible :membership_level, :first_name, :last_name, :title, :organization,
     :street_address, :city, :province, :postal_code, :phone, :fax, :website, 
-    :enabled, :add_to_member_until, :role_ids
-
+    :enabled, :add_to_member_until, :role_ids, :subscribe_to_campaign_monitor
+    
+  attr_accessor :subscribe_to_campaign_monitor  
+  
   set_inheritance_column :membership_level
 
   after_create :ensure_member_role
   after_create :deliver_confirmation_mail
   after_create :ensure_activation 
+  
+  def subscribe_to_campaign_monitor=(val)
+    if val.to_i == 1 && !self.subscribed_to_campaign_monitor?
+      CreateSend::Subscriber.add(CAMPAIGN_MONITOR_LIST_ID, self.email, self.full_name, [], true) if defined?(CAMPAIGN_MONITOR_LIST_ID)
+      update_attribute(:subscribed_to_campaign_monitor, true)
+    elsif val.to_i == 0 && self.subscribed_to_campaign_monitor?
+      CreateSend::Subscriber.new(CAMPAIGN_MONITOR_LIST_ID, self.email).unsubscribe if defined?(CAMPAIGN_MONITOR_LIST_ID)
+      update_attribute(:subscribed_to_campaign_monitor, false)
+    end
+  end
+  
+  def subscribe_to_campaign_monitor 
+    subscribed_to_campaign_monitor?
+  end
   
   def full_name
     "#{self.first_name} #{last_name}"

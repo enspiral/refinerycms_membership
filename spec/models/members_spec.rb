@@ -27,6 +27,23 @@ describe Member do
       sent.collect(&:to).flatten.should include @admin.email
     end
     
+    it "should subscribe to campaign monitor" do
+      @member = Member.make
+      @member.subscribe_to_campaign_monitor = "1"
+      @member.save
+      @member.subscribed_to_campaign_monitor.should == true
+    end
+    
+    it "should unsubscribe to campaign monitor" do
+      @member = Member.make
+      @member.subscribe_to_campaign_monitor = "1"
+      @member.save
+      @member.subscribed_to_campaign_monitor.should == true
+      @member.subscribe_to_campaign_monitor = "0"
+      @member.save
+      @member.subscribed_to_campaign_monitor.should == false
+    end
+    
     it "should not deliver notification after create if setting is false" do
       deliver_on_create_member(false)
       Member.make

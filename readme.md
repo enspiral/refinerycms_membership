@@ -17,6 +17,7 @@ __A role based membership engine for [refinerycms](http://refinerycms.com)__
 * Member adminisistration (approve, extend, reject, cancel, delete)
 * Role Management (Add new roles and assign them to pages) 
 * Email Management (edit email content + configure which emails are sent + to whom)
+* Campaign Monitor Support by defining CAMPAIGN_MONITOR_LIST_ID
 
 ## Settings
 
