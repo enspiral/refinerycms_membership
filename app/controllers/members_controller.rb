@@ -5,10 +5,6 @@ class MembersController < ApplicationController
 
   before_filter :find_page
   
-  def current_member
-    
-  end
-  
   # GET /member/:id
   def profile
     @member = current_user

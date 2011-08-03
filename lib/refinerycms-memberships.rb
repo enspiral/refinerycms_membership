@@ -59,23 +59,24 @@ module Refinery
             subscribed_to_campaign_monitor?
           end
         end
-    
         
         Role.class_eval do
           has_and_belongs_to_many :pages
         end
         
-        #redirect user to the right page after login
+        # redirect user to the right page after login
         ApplicationController.class_eval do
+          
           protected
+          
           def after_sign_in_path_for(resource_or_scope)
             
             if resource_or_scope.class.superclass.name == 'User' || 
               resource_or_scope.class.name == 'User' ||
               resource_or_scope.to_s == 'user'
               
-              if params[:redirect].present?
-                params[:redirect]
+              if session[:redirect_to].present?
+                session[:redirect_to]
               else
                 if !resource_or_scope.is_a?(Symbol) && (resource_or_scope.has_role?('Superuser')||resource_or_scope.has_role?('Refinery'))
                   super
